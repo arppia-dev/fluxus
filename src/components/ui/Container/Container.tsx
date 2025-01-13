@@ -1,11 +1,5 @@
 import { Col, Row } from 'antd'
-import { CSSProperties } from 'react'
-
-interface ContainerProps {
-  children: React.ReactNode
-  className?: string
-  style?: CSSProperties | undefined
-}
+import { ContainerProps } from './Container.types'
 
 export default function Container({
   children,

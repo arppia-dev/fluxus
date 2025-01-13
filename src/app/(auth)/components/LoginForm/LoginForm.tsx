@@ -1,11 +1,9 @@
 'use client'
 
-import { Alert, Button, ConfigProvider, Form, Input, Typography } from 'antd'
+import { Alert, Button, Form, Input } from 'antd'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-
-const { Title } = Typography
 
 export default function LoginForm() {
   const router = useRouter()
@@ -22,7 +20,7 @@ export default function LoginForm() {
       redirect: false,
     })
 
-    response?.error ? setErrorLogin(response.error) : router.push('/dashboard')
+    response?.error ? setErrorLogin(response.error) : router.push('/')
 
     setLoading(false)
   }
@@ -40,7 +38,6 @@ export default function LoginForm() {
           }}
         />
       )}
-
       <Form
         form={loginForm}
         name="login"

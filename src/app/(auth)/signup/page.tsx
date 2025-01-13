@@ -1,6 +1,6 @@
-import Container from '@/components/ui/Container'
+import { Container } from '@/components/ui/Container'
 import { Col, Row } from 'antd'
-import SignUpForm from '../components/SignUpForm'
+import { SignUpForm } from '../components/SignUpForm'
 
 export default function SignUp() {
   return (

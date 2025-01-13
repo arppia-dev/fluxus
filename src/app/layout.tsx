@@ -1,3 +1,4 @@
+import { SessionProvider } from '@/components/utils/SessionProvider'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
@@ -26,7 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <AntdRegistry>{children}</AntdRegistry>
+        <SessionProvider>
+          <AntdRegistry>{children}</AntdRegistry>
+        </SessionProvider>
       </body>
     </html>
   )

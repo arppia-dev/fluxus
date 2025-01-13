@@ -38,14 +38,7 @@ const handler = nextAuth({
         console.log(data)
 
         return {
-          id: data.user.id,
-          username: data.user.username,
-          name: data.user.name,
-          lastname: data.user.lastname,
-          email: data.user.email,
-          confirmed: data.user.confirmed,
-          blocked: data.user.blocked,
-          token: data.jwt,
+          ...data,
         }
       },
     }),

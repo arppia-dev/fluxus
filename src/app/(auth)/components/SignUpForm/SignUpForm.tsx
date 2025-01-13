@@ -30,7 +30,6 @@ export default function SignUpForm() {
           username: values.username,
           email: values.email,
           password: values.password,
-          role: 1,
         }),
       },
     )
@@ -57,7 +56,6 @@ export default function SignUpForm() {
   return (
     <>
       {contextHolder}
-
       {errorSignUp && (
         <Alert
           message={errorSignUp}
@@ -69,7 +67,6 @@ export default function SignUpForm() {
           }}
         />
       )}
-
       <Form
         form={signUpForm}
         name="login"
