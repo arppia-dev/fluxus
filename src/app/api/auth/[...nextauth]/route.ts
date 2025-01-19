@@ -35,10 +35,8 @@ const handler = nextAuth({
           throw Error('Unable to sign in, please try again later.')
         }
 
-        console.log(data)
-
         return {
-          ...data,
+          ...data.user,
         }
       },
     }),
