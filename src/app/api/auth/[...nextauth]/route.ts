@@ -1,4 +1,4 @@
-import { API_AUTH } from '@/utils/constAPI'
+import { API_AUTH } from '@/utils/const'
 import nextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 

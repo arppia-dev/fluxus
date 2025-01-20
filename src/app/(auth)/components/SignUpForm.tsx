@@ -1,6 +1,6 @@
 'use client'
 
-import { API_AUTH } from '@/utils/constAPI'
+import { API_AUTH } from '@/utils/const'
 import {
   emailPattern,
   passwordPattern,
