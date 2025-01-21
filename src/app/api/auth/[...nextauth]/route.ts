@@ -36,6 +36,7 @@ const handler = nextAuth({
         }
 
         return {
+          token: data.jwt,
           ...data.user,
         }
       },

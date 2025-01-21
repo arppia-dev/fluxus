@@ -2,7 +2,7 @@ import { Container } from '@/components/ui/Container'
 import { Col, Row } from 'antd'
 import { SignUpForm } from '../components/SignUpForm'
 
-export default function SignUp() {
+export default function SignUpPage() {
   return (
     <Container
       style={{

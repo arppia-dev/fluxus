@@ -1,7 +1,6 @@
 'use client'
 
-import { Container } from '@/components/ui/Container'
-import { CheckCircleFilled, CheckOutlined } from '@ant-design/icons'
+import { CheckCircleFilled } from '@ant-design/icons'
 import {
   Button,
   Card,
@@ -13,8 +12,7 @@ import {
   Space,
   Typography,
 } from 'antd'
-import { signOut, useSession } from 'next-auth/react'
-import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 
 const { Text } = Typography
 
