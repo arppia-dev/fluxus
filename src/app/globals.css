@@ -1,6 +1,13 @@
+@import './\(dashboard\)/settings/process/[id]/components/dist/assets/diagram-js.css';
+@import './\(dashboard\)/settings/process/[id]/components/dist/assets/bpmn-js.css';
+@import './\(dashboard\)/settings/process/[id]/components/dist/assets/bpmn-font/css/bpmn-embedded.css';
+@import 'https://unpkg.com/@bpmn-io/properties-panel/dist/assets/properties-panel.css';
+
 html,
 body {
+  height: 100%;
   max-width: 100vw;
+  max-height: 100vh;
   overflow-x: hidden;
 }
 
@@ -20,4 +27,3 @@ a {
   color: inherit;
   text-decoration: none;
 }
-

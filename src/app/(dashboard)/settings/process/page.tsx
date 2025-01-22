@@ -1,17 +1,28 @@
 'use client'
 
 import { fetcher, fetcherToken } from '@/utils/fetcher'
-import { ExportOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EditOutlined, ExportOutlined } from '@ant-design/icons'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
-import { Button, Col, Row, Skeleton, Space, Table, Typography } from 'antd'
+import {
+  Button,
+  Col,
+  Popconfirm,
+  Row,
+  Skeleton,
+  Space,
+  Table,
+  Typography,
+} from 'antd'
 import Search from 'antd/es/input/Search'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import useSWR from 'swr'
 
 const { Title } = Typography
 
 export default function ProcessPage() {
   const { data: session, status } = useSession()
+  const router = useRouter()
 
   const { data: processes } = useSWR(
     [`${process.env.NEXT_PUBLIC_API_URL}/api/processes`, session?.user?.token],
@@ -61,6 +72,30 @@ export default function ProcessPage() {
                   <div style={{ maxHeight: '100px' }}>
                     <BlocksRenderer content={description} />
                   </div>
+                ),
+              },
+              {
+                title: 'Actions',
+                dataIndex: 'id',
+                key: 'actions',
+                render: (id: any) => (
+                  <Space>
+                    <Button
+                      type="primary"
+                      icon={<EditOutlined />}
+                      onClick={() => {
+                        router.push(`/settings/process/${id}`)
+                      }}
+                    />
+                    <Popconfirm
+                      title="¿Eliminar el proceso?"
+                      description="Are you sure to delete this task?"
+                      okText="Sí"
+                      cancelText="No"
+                    >
+                      <Button type="primary" danger icon={<DeleteOutlined />} />
+                    </Popconfirm>
+                  </Space>
                 ),
               },
             ]}
