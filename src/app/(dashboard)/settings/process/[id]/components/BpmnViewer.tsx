@@ -27,14 +27,9 @@ export default function BpmnViewer({ xml }: BpmnViewerProps) {
       ],
     })
 
-    viewer
-      .importXML(xml)
-      .then(({ warnings }) => {
-        console.log('rendered')
-      })
-      .catch((err) => {
-        console.log('error rendering', err)
-      })
+    viewer.importXML(xml).catch((err) => {
+      console.error('Error importing diagram:', err)
+    })
   }, [xml])
 
   return (
