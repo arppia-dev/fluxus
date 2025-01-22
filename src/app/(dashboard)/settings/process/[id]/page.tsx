@@ -82,13 +82,11 @@ export default function ProcessPage() {
   ]
 
   return (
-    <>
-      <Tabs
-        defaultActiveKey="1"
-        items={items}
-        onChange={onChange}
-        style={{ width: '100%', height: '100%' }}
-      />
-    </>
+    <Tabs
+      defaultActiveKey="1"
+      items={items}
+      onChange={onChange}
+      style={{ width: '100%', height: '100%' }}
+    />
   )
 }
