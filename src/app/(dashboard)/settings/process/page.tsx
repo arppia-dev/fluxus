@@ -1,5 +1,6 @@
 'use client'
 
+import { API_PROCESS } from '@/utils/const'
 import { fetcher, fetcherToken } from '@/utils/fetcher'
 import { DeleteOutlined, EditOutlined, ExportOutlined } from '@ant-design/icons'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
@@ -25,7 +26,10 @@ export default function ProcessPage() {
   const router = useRouter()
 
   const { data: processes } = useSWR(
-    [`${process.env.NEXT_PUBLIC_API_URL}/api/processes`, session?.user?.token],
+    [
+      `${process.env.NEXT_PUBLIC_API_URL}${API_PROCESS.LIST}`,
+      session?.user?.token,
+    ],
     ([url, token]) => fetcherToken(url, token as string),
   )
 
