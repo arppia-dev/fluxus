@@ -1,23 +1,12 @@
 'use client'
 
-import { CheckCircleFilled } from '@ant-design/icons'
-import {
-  Button,
-  Card,
-  Col,
-  Divider,
-  Flex,
-  Row,
-  Skeleton,
-  Space,
-  Typography,
-} from 'antd'
+import { Col, Row, Skeleton } from 'antd'
 import { useSession } from 'next-auth/react'
 
-const { Text } = Typography
+// const { Text } = Typography
 
 export default function DashboardPage() {
-  const { data: session, status } = useSession()
+  const { status } = useSession()
 
   if (status === 'loading') {
     return <Skeleton />
@@ -31,7 +20,7 @@ export default function DashboardPage() {
           <br />
         </Col>
       </Row>
-      <Row gutter={[10, 10]}>
+      {/* <Row gutter={[10, 10]}>
         {[1, 2, 3, 4].map((item: any) => {
           return (
             <Col span={6} key={item}>
@@ -73,7 +62,7 @@ export default function DashboardPage() {
             </Col>
           )
         })}
-      </Row>
+      </Row> */}
     </>
   )
 }

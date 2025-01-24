@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react'
 const { Title } = Typography
 
 export default function SettingsPage() {
-  const { data: session, status } = useSession()
+  const { status } = useSession()
 
   if (status === 'loading') {
     return <Skeleton />

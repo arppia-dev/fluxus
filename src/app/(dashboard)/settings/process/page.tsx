@@ -1,9 +1,9 @@
 'use client'
 
 import { API_PROCESS } from '@/utils/const'
-import { fetcher, fetcherToken } from '@/utils/fetcher'
+import { fetcherToken } from '@/utils/fetcher'
 import { DeleteOutlined, EditOutlined, ExportOutlined } from '@ant-design/icons'
-import { BlocksRenderer } from '@strapi/blocks-react-renderer'
+// import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import {
   Button,
   Col,
@@ -72,17 +72,17 @@ export default function ProcessPage() {
                 title: 'Description',
                 dataIndex: 'description',
                 key: 'description',
-                render: (description: any) => (
+                /* render: (description: any) => (
                   <div style={{ maxHeight: '100px' }}>
                     <BlocksRenderer content={description} />
                   </div>
-                ),
+                ), */
               },
               {
                 title: 'Actions',
                 dataIndex: 'id',
                 key: 'actions',
-                render: (id: any) => (
+                render: (id: number) => (
                   <Space>
                     <Button
                       type="primary"

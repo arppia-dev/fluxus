@@ -20,6 +20,7 @@ import {
   Menu,
   MenuProps,
   Row,
+  Skeleton,
   Space,
   theme,
   Typography,
@@ -37,7 +38,7 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const [collapsed, setCollapsed] = useState(false)
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -96,6 +97,8 @@ export default function DashboardLayout({
       ),
     },
   ]
+
+  if (!session) return <Skeleton />
 
   return (
     <Layout style={{ height: '100%' }}>

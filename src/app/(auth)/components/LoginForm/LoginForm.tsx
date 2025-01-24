@@ -20,9 +20,12 @@ export default function LoginForm() {
       redirect: false,
     })
 
-    response?.error ? setErrorLogin(response.error) : router.push('/')
-
-    setLoading(false)
+    if (response?.error) {
+      setErrorLogin(response.error)
+      setLoading(false)
+    } else {
+      router.push('/')
+    }
   }
 
   return (
