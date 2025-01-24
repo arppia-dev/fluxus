@@ -1,9 +1,9 @@
 'use client'
 
 import { API_PROCESS } from '@/utils/const'
-import { fetcherToken } from '@/utils/fetcher'
+import { fetcher } from '@/utils/fetcher'
 import { DeleteOutlined, EditOutlined, ExportOutlined } from '@ant-design/icons'
-// import { BlocksRenderer } from '@strapi/blocks-react-renderer'
+import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import {
   Button,
   Col,
@@ -26,11 +26,8 @@ export default function ProcessPage() {
   const router = useRouter()
 
   const { data: processes } = useSWR(
-    [
-      `${process.env.NEXT_PUBLIC_API_URL}${API_PROCESS.LIST}`,
-      session?.user?.token,
-    ],
-    ([url, token]) => fetcherToken(url, token as string),
+    `${process.env.NEXT_PUBLIC_API_URL}${API_PROCESS.LIST}`,
+    fetcher,
   )
 
   if (status === 'loading') {
@@ -61,6 +58,7 @@ export default function ProcessPage() {
                 title: 'ID',
                 dataIndex: 'id',
                 key: 'id',
+                render: (id: number) => <a>{id}</a>,
               },
               {
                 title: 'Name',
@@ -72,16 +70,16 @@ export default function ProcessPage() {
                 title: 'Description',
                 dataIndex: 'description',
                 key: 'description',
-                /* render: (description: any) => (
+                render: (description: any) => (
                   <div style={{ maxHeight: '100px' }}>
                     <BlocksRenderer content={description} />
                   </div>
-                ), */
+                ),
               },
               {
                 title: 'Actions',
-                dataIndex: 'id',
                 key: 'actions',
+                dataIndex: 'id',
                 render: (id: number) => (
                   <Space>
                     <Button

@@ -1,25 +1,35 @@
 'use client'
 
 import { API_PROCESS } from '@/utils/const'
-import { fetcherToken } from '@/utils/fetcher'
-import { Skeleton, Tabs, TabsProps } from 'antd'
+import { fetcher, fetcherToken } from '@/utils/fetcher'
+import { Tabs, TabsProps } from 'antd'
 import { useSession } from 'next-auth/react'
 import { useParams } from 'next/navigation'
 import useSWR from 'swr'
 import BpmnViewer from './components/BpmnViewer'
+import qs from 'qs'
 
 export default function ProcessPage() {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const params = useParams<{ id: string }>()
 
+  const query = qs.stringify(
+    {
+      filters: {
+        id: {
+          $eq: params.id,
+        },
+      },
+    },
+    {
+      encodeValuesOnly: true, // prettify URL
+    },
+  )
+
   const { data: processData } = useSWR(
-    session
-      ? [
-          `${process.env.NEXT_PUBLIC_API_URL}${API_PROCESS.GET}/?filters[id][$eq]=${params.id}`,
-          session?.user?.token,
-        ]
-      : null,
-    ([url, token]) => fetcherToken(url, token as string),
+    `${process.env.NEXT_PUBLIC_API_URL}/api/processes?${query}`,
+    fetcher,
+    //([url, token]) => fetcherToken(url, token as string),
   )
 
   const onChange = (key: string) => {
@@ -38,7 +48,11 @@ export default function ProcessPage() {
       label: 'Editor',
       style: { height: '100%' },
       children: (
-        <>{processData && <BpmnViewer xml={processData?.data[0].bpmn} />}</>
+        <>
+          {processData && processData?.data[0]?.bpmn != undefined && (
+            <BpmnViewer xml={processData?.data[0]?.bpmn} />
+          )}
+        </>
       ),
     },
   ]
