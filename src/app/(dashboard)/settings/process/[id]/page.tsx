@@ -1,13 +1,16 @@
 'use client'
 
-import { API_PROCESS } from '@/utils/const'
-import { fetcher, fetcherToken } from '@/utils/fetcher'
-import { Tabs, TabsProps } from 'antd'
+import { fetcherToken } from '@/utils/fetcher'
+import { Block } from '@blocknote/core'
+import '@blocknote/core/fonts/inter.css'
+import '@blocknote/mantine/style.css'
+import { Skeleton, Tabs, TabsProps } from 'antd'
 import { useSession } from 'next-auth/react'
 import { useParams } from 'next/navigation'
+import qs from 'qs'
+import { useState } from 'react'
 import useSWR from 'swr'
 import BpmnViewer from './components/BpmnViewer'
-import qs from 'qs'
 
 export default function ProcessPage() {
   const { data: session } = useSession()
@@ -22,14 +25,16 @@ export default function ProcessPage() {
       },
     },
     {
-      encodeValuesOnly: true, // prettify URL
+      encodeValuesOnly: true,
     },
   )
 
   const { data: processData } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/processes?${query}`,
-    fetcher,
-    //([url, token]) => fetcherToken(url, token as string),
+    session && [
+      `${process.env.NEXT_PUBLIC_API_URL}/api/processes?${query}`,
+      session?.user.token!,
+    ],
+    ([url, token]) => fetcherToken(url, token as string),
   )
 
   const onChange = (key: string) => {
@@ -41,30 +46,30 @@ export default function ProcessPage() {
       key: '1',
       label: 'Formulario',
       style: { height: '800px' },
-      children: 'Formulario',
+      children: <>Formulario</>,
     },
     {
       key: '2',
       label: 'Editor',
-      style: { height: '100%' },
-      children: (
-        <>
-          {processData && processData?.data[0]?.bpmn != undefined && (
-            <BpmnViewer xml={processData?.data[0]?.bpmn} />
-          )}
-        </>
-      ),
+      style: { height: '800px' },
+      children: <BpmnViewer xml={processData?.data[0]?.bpmn} />,
     },
   ]
 
+  if (!processData && processData?.data[0]?.bpmn == undefined) {
+    return <Skeleton />
+  }
+
+  if (processData.data.length === 0) {
+    return <pre>No hay registro del proceso</pre>
+  }
+
   return (
-    <>
-      <Tabs
-        defaultActiveKey="2"
-        items={items}
-        onChange={onChange}
-        style={{ width: '100%', height: '100%' }}
-      />
-    </>
+    <Tabs
+      defaultActiveKey="1"
+      items={items}
+      onChange={onChange}
+      style={{ width: '100%', height: '100%' }}
+    />
   )
 }

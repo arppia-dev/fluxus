@@ -20,7 +20,6 @@ import {
   Menu,
   MenuProps,
   Row,
-  Skeleton,
   Space,
   theme,
   Typography,
@@ -97,8 +96,6 @@ export default function DashboardLayout({
       ),
     },
   ]
-
-  if (!session) return <Skeleton />
 
   return (
     <Layout style={{ height: '100%' }}>

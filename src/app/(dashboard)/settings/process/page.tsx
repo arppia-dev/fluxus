@@ -1,15 +1,15 @@
 'use client'
 
 import { API_PROCESS } from '@/utils/const'
-import { fetcher } from '@/utils/fetcher'
+import { fetcherToken } from '@/utils/fetcher'
 import { DeleteOutlined, EditOutlined, ExportOutlined } from '@ant-design/icons'
-import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import {
   Button,
   Col,
+  message,
   Popconfirm,
+  PopconfirmProps,
   Row,
-  Skeleton,
   Space,
   Table,
   Typography,
@@ -24,18 +24,24 @@ const { Title } = Typography
 export default function ProcessPage() {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const [messageApi, contextHolder] = message.useMessage()
 
   const { data: processes } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}${API_PROCESS.LIST}`,
-    fetcher,
+    session && [
+      `${process.env.NEXT_PUBLIC_API_URL}${API_PROCESS.LIST}`,
+      session?.user.token!,
+    ],
+    ([url, token]) => fetcherToken(url, token as string),
   )
 
-  if (status === 'loading') {
-    return <Skeleton />
+  const confirm: PopconfirmProps['onConfirm'] = (e) => {
+    console.log(e)
+    messageApi.success('Proceso eliminado')
   }
 
   return (
     <>
+      {contextHolder}
       <Row justify={'space-between'}>
         <Col span={12}>
           <Title level={1}>Process</Title>
@@ -51,8 +57,9 @@ export default function ProcessPage() {
       <Row>
         <Col span={24}>
           <Table
-            dataSource={processes?.data || []}
             rowKey="id"
+            dataSource={processes?.data || []}
+            loading={status === 'loading' && processes === undefined}
             columns={[
               {
                 title: 'ID',
@@ -70,11 +77,6 @@ export default function ProcessPage() {
                 title: 'Description',
                 dataIndex: 'description',
                 key: 'description',
-                render: (description: any) => (
-                  <div style={{ maxHeight: '100px' }}>
-                    <BlocksRenderer content={description} />
-                  </div>
-                ),
               },
               {
                 title: 'Actions',
@@ -90,10 +92,12 @@ export default function ProcessPage() {
                       }}
                     />
                     <Popconfirm
-                      title="¿Eliminar el proceso?"
-                      description="Are you sure to delete this task?"
+                      title="Eliminar proceso"
+                      description="¿Estas seguro que quieres eliminar el proceso?"
+                      placement="left"
                       okText="Sí"
                       cancelText="No"
+                      onConfirm={confirm}
                     >
                       <Button type="primary" danger icon={<DeleteOutlined />} />
                     </Popconfirm>

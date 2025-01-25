@@ -47,7 +47,7 @@ const handler = nextAuth({
       return { ...token, ...user }
     },
     session: async ({ session, token }) => {
-      session.user = token as any
+      session.user = token as typeof session.user
       return session
     },
   },
