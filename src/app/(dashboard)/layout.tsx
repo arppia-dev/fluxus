@@ -70,7 +70,7 @@ export default function DashboardLayout({
     {
       key: '1',
       icon: <SettingOutlined />,
-      label: <Link href={'/profile'}>Configuration</Link>,
+      label: <Link href={'/profile'}>Settings</Link>,
     },
     {
       type: 'divider',
@@ -109,7 +109,7 @@ export default function DashboardLayout({
             {
               key: '1',
               icon: <DashboardOutlined />,
-              label: 'Dashboard',
+              label: <Link href={'/'}>Dashboard</Link>,
             },
             {
               type: 'divider',
@@ -117,7 +117,7 @@ export default function DashboardLayout({
             {
               key: '2',
               icon: <SettingOutlined />,
-              label: 'Configuration',
+              label: <Link href={'/settings'}>Settings</Link>,
             },
           ]}
         />
