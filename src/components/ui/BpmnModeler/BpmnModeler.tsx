@@ -9,8 +9,8 @@ import 'bpmn-js/dist/assets/bpmn-js.css'
 import 'bpmn-js/dist/assets/diagram-js.css'
 import Modeler from 'bpmn-js/lib/Modeler'
 import { useEffect, useState } from 'react'
-import styles from './BpmnViewer.module.css'
-import { BpmnViewerProps } from './BpmnViewer.types'
+import styles from './BpmnModeler.module.css'
+import { BpmnModelerProps } from './BpmnModeler.types'
 
 var events = [
   'element.hover',
@@ -21,7 +21,7 @@ var events = [
   'element.mouseup',
 ]
 
-export default function BpmnViewer({ xml }: BpmnViewerProps) {
+export default function BpmnModeler({ xml }: BpmnModelerProps) {
   const [event, setEvent] = useState('')
 
   useEffect(() => {
