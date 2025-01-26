@@ -10,10 +10,7 @@ import 'bpmn-js/dist/assets/diagram-js.css'
 import Modeler from 'bpmn-js/lib/Modeler'
 import { useEffect, useState } from 'react'
 import styles from './BpmnViewer.module.css'
-
-interface BpmnViewerProps {
-  xml: string
-}
+import { BpmnViewerProps } from './BpmnViewer.types'
 
 var events = [
   'element.hover',
@@ -63,14 +60,9 @@ export default function BpmnViewer({ xml }: BpmnViewerProps) {
   }, [])
 
   return (
-    <>
-      <pre style={{ height: '400px', maxHeight: '400px', overflow: 'scroll' }}>
-        {JSON.stringify(event, null, 2)}
-      </pre>
-      <div style={{ height: '100%' }}>
-        <div id="bpmn-container" style={{ height: '100%' }}></div>
-        <div id="properties" className={styles.properties}></div>
-      </div>
-    </>
+    <div style={{ height: '100%' }}>
+      <div id="bpmn-container" style={{ height: '100%' }}></div>
+      <div id="properties" className={styles.properties}></div>
+    </div>
   )
 }

@@ -10,7 +10,7 @@ import { useParams } from 'next/navigation'
 import qs from 'qs'
 import { useState } from 'react'
 import useSWR from 'swr'
-import BpmnViewer from './components/BpmnViewer'
+import { BpmnViewer } from '../components/BpmnViewer'
 
 export default function ProcessPage() {
   const { data: session } = useSession()
