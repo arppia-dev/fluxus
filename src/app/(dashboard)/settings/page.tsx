@@ -18,6 +18,11 @@ export default function SettingsPage() {
       description: 'Configuración de requisitos',
       link: '/settings/requirements',
     },
+    {
+      title: 'Formularios',
+      description: 'Configuración de formularios',
+      link: '/settings/forms',
+    },
   ]
 
   return (

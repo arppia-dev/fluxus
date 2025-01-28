@@ -1,9 +1,9 @@
 'use client'
 
 import { BpmnModeler } from '@/components/ui/BpmnModeler'
-import { PayloadSchema } from '@/types/PayloadShema'
-import { ProcessSchema } from '@/types/ProcessSchema'
 import { fetcherToken } from '@/utils/fetcher'
+import '@blocknote/core/fonts/inter.css'
+import '@blocknote/mantine/style.css'
 import { Skeleton, Tabs, TabsProps } from 'antd'
 import { useSession } from 'next-auth/react'
 import { useParams } from 'next/navigation'
@@ -27,7 +27,7 @@ export default function ProcessPage() {
     },
   )
 
-  const { data: processData } = useSWR<PayloadSchema<ProcessSchema[]>>(
+  const { data: processData } = useSWR(
     session && [
       `${process.env.NEXT_PUBLIC_API_URL}/api/processes?${query}`,
       session?.user.token!,
@@ -50,11 +50,11 @@ export default function ProcessPage() {
       key: '2',
       label: 'Editor',
       style: { height: '800px' },
-      children: <BpmnModeler xml={processData?.data[0].bpmn!} />,
+      children: <BpmnModeler xml={processData?.data[0]?.bpmn} />,
     },
   ]
 
-  if (!processData) {
+  if (!processData && processData?.data[0]?.bpmn == undefined) {
     return <Skeleton />
   }
 

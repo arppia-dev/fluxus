@@ -1,10 +1,10 @@
 import { BpmnViewer } from '@/components/ui/BpmnViewer'
 import { Card, Flex, message, PopconfirmProps, Typography } from 'antd'
-import { ProcessProps } from './Process.types'
+import { ProcessProps } from './ProcessCard.types'
 
 const { Text } = Typography
 
-export default function Process({ data, index }: ProcessProps) {
+export default function ProcessCard({ data, index }: ProcessProps) {
   const [messageApi, contextHolder] = message.useMessage()
 
   const confirm: PopconfirmProps['onConfirm'] = (e) => {

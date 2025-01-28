@@ -98,7 +98,7 @@ export default function DashboardLayout({
   ]
 
   return (
-    <Layout style={{ height: '100%' }}>
+    <Layout style={{ minHeight: '100%' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className={styles.logo} />
         <Menu
