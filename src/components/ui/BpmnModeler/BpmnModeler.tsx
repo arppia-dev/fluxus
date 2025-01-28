@@ -8,7 +8,7 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
 import 'bpmn-js/dist/assets/bpmn-js.css'
 import 'bpmn-js/dist/assets/diagram-js.css'
 import Modeler from 'bpmn-js/lib/Modeler'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './BpmnModeler.module.css'
 import { BpmnModelerProps } from './BpmnModeler.types'
 
@@ -22,13 +22,15 @@ var events = [
 ]
 
 export default function BpmnModeler({ xml }: BpmnModelerProps) {
+  const containerRef = useRef(null)
+  const propertiesPanelRef = useRef(null)
   const [event, setEvent] = useState('')
 
   useEffect(() => {
     const viewer = new Modeler({
-      container: '#bpmn-container',
+      container: containerRef.current!,
       propertiesPanel: {
-        parent: '#properties',
+        parent: propertiesPanelRef.current,
       },
       additionalModules: [
         BpmnPropertiesPanelModule,
@@ -61,8 +63,8 @@ export default function BpmnModeler({ xml }: BpmnModelerProps) {
 
   return (
     <div style={{ height: '100%' }}>
-      <div id="bpmn-container" style={{ height: '100%' }}></div>
-      <div id="properties" className={styles.properties}></div>
+      <div ref={containerRef} style={{ height: '100%' }}></div>
+      <div ref={propertiesPanelRef} className={styles.properties}></div>
     </div>
   )
 }

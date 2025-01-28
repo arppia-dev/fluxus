@@ -2,8 +2,6 @@
 
 import { BpmnModeler } from '@/components/ui/BpmnModeler'
 import { fetcherToken } from '@/utils/fetcher'
-import '@blocknote/core/fonts/inter.css'
-import '@blocknote/mantine/style.css'
 import { Skeleton, Tabs, TabsProps } from 'antd'
 import { useSession } from 'next-auth/react'
 import { useParams } from 'next/navigation'
