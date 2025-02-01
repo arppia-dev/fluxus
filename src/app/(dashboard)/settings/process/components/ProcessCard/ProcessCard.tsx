@@ -15,7 +15,7 @@ export default function ProcessCard({ data, index }: ProcessProps) {
   return (
     <>
       {contextHolder}
-      <Card>
+      <Card style={{ height: '100%' }}>
         <Flex vertical gap={10}>
           <BpmnViewer xml={data.bpmn} index={index} />
           <Text strong>

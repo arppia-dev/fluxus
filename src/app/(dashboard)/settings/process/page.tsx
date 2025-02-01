@@ -14,6 +14,7 @@ import {
   PaginationProps,
   PopconfirmProps,
   Row,
+  Skeleton,
   Space,
   Typography,
 } from 'antd'
@@ -120,12 +121,15 @@ export default function ProcessPage() {
       </Row>
       <Flex vertical gap={20}>
         <Row gutter={[20, 20]}>
-          {processes &&
+          {processes ? (
             processes?.data.map((process: ProcessSchema, index: number) => (
-              <Col span={6} key={index}>
+              <Col xs={24} sm={12} lg={6} key={index}>
                 <ProcessCard data={process} index={index} />
               </Col>
-            ))}
+            ))
+          ) : (
+            <Skeleton />
+          )}
         </Row>
         <Row>
           <Col xs={24}>

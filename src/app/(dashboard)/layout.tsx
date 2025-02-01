@@ -1,6 +1,8 @@
 'use client'
 
 import {
+  BookOutlined,
+  CalendarOutlined,
   DashboardOutlined,
   DownOutlined,
   LogoutOutlined,
@@ -8,6 +10,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SettingOutlined,
+  TagsOutlined,
   UserOutlined,
 } from '@ant-design/icons'
 import {
@@ -112,10 +115,25 @@ export default function DashboardLayout({
               label: <Link href={'/'}>Dashboard</Link>,
             },
             {
+              key: '2',
+              icon: <TagsOutlined />,
+              label: <Link href={'/tasks'}>My Tasks</Link>,
+            },
+            {
+              key: '3',
+              icon: <CalendarOutlined />,
+              label: <Link href={'/calendar'}>Calendar</Link>,
+            },
+            {
+              key: '4',
+              icon: <BookOutlined />,
+              label: <Link href={'/reports'}>Reports</Link>,
+            },
+            {
               type: 'divider',
             },
             {
-              key: '2',
+              key: '5',
               icon: <SettingOutlined />,
               label: <Link href={'/settings'}>Settings</Link>,
             },
