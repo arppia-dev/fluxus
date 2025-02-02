@@ -32,7 +32,7 @@ export default function BpmnViewer({ xml, index }: BpmnViewerProps) {
     <div style={{ height: '100%' }}>
       <div
         id={`bpmn-container${index}`}
-        style={{ height: '100%', width: '100%' }}
+        style={{ height: '100%', width: '100%', backgroundColor: '#f0f0f0' }}
       ></div>
     </div>
   )

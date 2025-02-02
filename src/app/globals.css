@@ -19,3 +19,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.bjs-powered-by {
+  display: none;
+}

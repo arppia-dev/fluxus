@@ -4,9 +4,20 @@ import { PayloadSchema } from '@/types/PayloadShema'
 import { ProcessSchema } from '@/types/ProcessSchema'
 import { API_PROCESS } from '@/utils/const'
 import { fetcherToken } from '@/utils/fetcher'
-import { ExportOutlined } from '@ant-design/icons'
 import {
+  AntDesignOutlined,
+  CodeSandboxOutlined,
+  ExportOutlined,
+  FolderOutlined,
+  MenuOutlined,
+  PlusOutlined,
+  UserOutlined,
+} from '@ant-design/icons'
+import {
+  Avatar,
+  Badge,
   Button,
+  Card,
   Col,
   Flex,
   message,
@@ -16,6 +27,7 @@ import {
   Row,
   Skeleton,
   Space,
+  Tooltip,
   Typography,
 } from 'antd'
 import Search, { SearchProps } from 'antd/es/input/Search'
@@ -26,7 +38,7 @@ import { ProcessCard } from './components/ProcessCard'
 import { useState } from 'react'
 import qs from 'qs'
 
-const { Title } = Typography
+const { Title, Text } = Typography
 
 export default function ProcessPage() {
   const { data: session } = useSession()
@@ -99,7 +111,12 @@ export default function ProcessPage() {
       {contextHolder}
       <Row justify={'space-between'}>
         <Col span={12}>
-          <Title level={1}>Process</Title>
+          <Flex gap={5} align="center">
+            <CodeSandboxOutlined style={{ fontSize: '2rem' }} />
+            <Title level={2} style={{ margin: '0' }}>
+              Process
+            </Title>
+          </Flex>
         </Col>
         <Col span={12} style={{ textAlign: 'right' }}>
           <Space>
@@ -115,38 +132,101 @@ export default function ProcessPage() {
               TODO: añadir reporte de export
               <Button icon={<ExportOutlined />}>Exportar</Button>
             */}
-            <Button type="primary">Añadir</Button>
+            <Button type="primary" icon={<PlusOutlined />}>
+              Crear Proyecto
+            </Button>
           </Space>
         </Col>
       </Row>
-      <Flex vertical gap={20}>
-        <Row gutter={[20, 20]}>
-          {processes ? (
-            processes?.data.map((process: ProcessSchema, index: number) => (
-              <Col xs={24} sm={12} lg={6} key={index}>
+      <br />
+      <Row gutter={[10, 10]}>
+        <Col span={24}>
+          <Text strong style={{ color: '#757575' }}>
+            Last edited
+          </Text>
+        </Col>
+        {processes ? (
+          processes?.data
+            .slice(0, 4)
+            .map((process: ProcessSchema, index: number) => (
+              <Col xs={24} sm={12} md={8} lg={6} key={index}>
                 <ProcessCard data={process} index={index} />
               </Col>
             ))
-          ) : (
-            <Skeleton />
-          )}
-        </Row>
-        <Row>
-          <Col xs={24}>
-            <Pagination
-              align="end"
-              defaultCurrent={1}
-              current={pagination.current}
-              pageSize={pagination.pageSize}
-              total={processes?.meta?.pagination?.total}
-              showSizeChanger
-              pageSizeOptions={[12, 24, 48, 96]}
-              onChange={onChange}
-              onShowSizeChange={onShowSizeChange}
-            />
+        ) : (
+          <Skeleton />
+        )}
+      </Row>
+      <br />
+      <br />
+      <Row gutter={[10, 10]}>
+        <Col span={24}>
+          <Flex gap={5}>
+            <Text strong>Proyectos</Text>
+            <Badge count={4} color="#757575" />
+          </Flex>
+        </Col>
+        {[1, 2, 3, 4, 5].map((item: number) => (
+          <Col span={24} key={item}>
+            <Card styles={{ body: { padding: '0.5rem 1rem' } }}>
+              <Row align={'middle'}>
+                <Col xs={12}>
+                  <Flex gap={5} align="center">
+                    <FolderOutlined />
+                    <Text strong>Project Name</Text>
+                  </Flex>
+                </Col>
+                <Col xs={4}>
+                  <Flex gap={5}>
+                    <FolderOutlined />
+                    <Text strong>{item} Diagrams</Text>
+                  </Flex>
+                </Col>
+                <Col xs={4}>
+                  <Text style={{ color: '#757575', fontSize: '0.7rem' }}>
+                    Edited 20 seconds ago
+                  </Text>
+                </Col>
+                <Col xs={4}>
+                  <Flex justify="space-between">
+                    <Avatar.Group
+                      max={{
+                        count: 4,
+                      }}
+                    >
+                      <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=2" />
+                      <Avatar style={{ backgroundColor: 'blue' }}>K</Avatar>
+                      <Tooltip title="Ant User" placement="top">
+                        <Avatar
+                          style={{ backgroundColor: '#87d068' }}
+                          icon={<UserOutlined />}
+                        />
+                        <Avatar
+                          style={{ backgroundColor: '#1677ff' }}
+                          icon={<AntDesignOutlined />}
+                        />
+                      </Tooltip>
+                    </Avatar.Group>
+                    <MenuOutlined />
+                  </Flex>
+                </Col>
+              </Row>
+            </Card>
           </Col>
-        </Row>
-      </Flex>
+        ))}
+      </Row>
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </>
   )
 }
