@@ -5,7 +5,7 @@ import 'bpmn-js/dist/assets/bpmn-js.css'
 import 'bpmn-js/dist/assets/diagram-js.css'
 import Viewer from 'bpmn-js/lib/Viewer'
 import { useEffect } from 'react'
-import { BpmnViewerProps } from './BpmnViewer.types'
+import { BpmnViewerProps, CanvasProps } from './BpmnViewer.types'
 
 export default function BpmnViewer({ xml, index }: BpmnViewerProps) {
   useEffect(() => {
@@ -16,8 +16,8 @@ export default function BpmnViewer({ xml, index }: BpmnViewerProps) {
     viewer
       .importXML(xml)
       .then(() => {
-        viewer.get('canvas').zoom('fit-viewport')
-        console.log('rendered')
+        const canvas: CanvasProps = viewer.get('canvas')
+        canvas.zoom('fit-viewport')
       })
       .catch((err) => {
         console.error('Error importing diagram:', err)

@@ -37,6 +37,7 @@ import useSWR from 'swr'
 import { ProcessCard } from './components/ProcessCard'
 import { useState } from 'react'
 import qs from 'qs'
+import ProjectCard from './components/ProjectCard/ProjectCard'
 
 const { Title, Text } = Typography
 
@@ -162,56 +163,13 @@ export default function ProcessPage() {
       <Row gutter={[10, 10]}>
         <Col span={24}>
           <Flex gap={5}>
-            <Text strong>Proyectos</Text>
+            <Text strong>Project</Text>
             <Badge count={4} color="#757575" />
           </Flex>
         </Col>
         {[1, 2, 3, 4, 5].map((item: number) => (
-          <Col span={24} key={item}>
-            <Card styles={{ body: { padding: '0.5rem 1rem' } }}>
-              <Row align={'middle'}>
-                <Col xs={12}>
-                  <Flex gap={5} align="center">
-                    <FolderOutlined />
-                    <Text strong>Project Name</Text>
-                  </Flex>
-                </Col>
-                <Col xs={4}>
-                  <Flex gap={5}>
-                    <FolderOutlined />
-                    <Text strong>{item} Diagrams</Text>
-                  </Flex>
-                </Col>
-                <Col xs={4}>
-                  <Text style={{ color: '#757575', fontSize: '0.7rem' }}>
-                    Edited 20 seconds ago
-                  </Text>
-                </Col>
-                <Col xs={4}>
-                  <Flex justify="space-between">
-                    <Avatar.Group
-                      max={{
-                        count: 4,
-                      }}
-                    >
-                      <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=2" />
-                      <Avatar style={{ backgroundColor: 'blue' }}>K</Avatar>
-                      <Tooltip title="Ant User" placement="top">
-                        <Avatar
-                          style={{ backgroundColor: '#87d068' }}
-                          icon={<UserOutlined />}
-                        />
-                        <Avatar
-                          style={{ backgroundColor: '#1677ff' }}
-                          icon={<AntDesignOutlined />}
-                        />
-                      </Tooltip>
-                    </Avatar.Group>
-                    <MenuOutlined />
-                  </Flex>
-                </Col>
-              </Row>
-            </Card>
+          <Col xs={24} sm={12} lg={24} key={item}>
+            <ProjectCard />
           </Col>
         ))}
       </Row>
