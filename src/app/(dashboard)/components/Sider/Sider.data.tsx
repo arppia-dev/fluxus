@@ -5,7 +5,7 @@ import {
   FileDoneOutlined,
   SettingOutlined,
 } from '@ant-design/icons'
-import { MenuProps } from 'antd'
+import type { MenuProps } from 'antd'
 import Link from 'next/link'
 
 export const items: MenuProps['items'] = [

@@ -1,4 +1,5 @@
 import {
+  BellOutlined,
   DownOutlined,
   LogoutOutlined,
   MailOutlined,
@@ -11,6 +12,7 @@ import {
   Avatar,
   Button,
   Col,
+  Divider,
   Dropdown,
   Flex,
   Layout,
@@ -24,74 +26,17 @@ import { Session } from 'next-auth'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { HeaderProps } from './Header.types'
+import { items } from './Header.data'
 
 const { Header: AntdHeader } = Layout
 const { Text } = Typography
 
-function getMenuItems(session: Session): MenuProps['items'] {
-  return [
-    {
-      key: '4',
-      label: (
-        <>
-          <Flex justify="center" align="center" vertical>
-            <Text strong>{session?.user?.username}</Text>
-            <Text>Cliente</Text>
-            <Space>
-              <MailOutlined />
-              <Text>{session?.user?.email}</Text>
-            </Space>
-          </Flex>
-        </>
-      ),
-    },
-    {
-      type: 'divider',
-    },
-    {
-      key: '0',
-      icon: <UserOutlined />,
-      label: <Link href={'/profile'}>Profile</Link>,
-    },
-    {
-      key: '1',
-      icon: <SettingOutlined />,
-      label: <Link href={'/profile'}>Settings</Link>,
-    },
-    {
-      type: 'divider',
-    },
-    {
-      key: '2',
-      label: (
-        <Button type="primary" block>
-          Actualizar Plan
-        </Button>
-      ),
-    },
-    {
-      type: 'divider',
-    },
-    {
-      key: '3',
-      icon: <LogoutOutlined />,
-      label: (
-        <Link href={'#'} onClick={() => signOut()}>
-          Logout
-        </Link>
-      ),
-    },
-  ]
-}
-
 export default function Header({ collapsed, setCollapsed }: HeaderProps) {
+  const { token } = theme.useToken()
   const { data: session } = useSession()
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken()
 
   return (
-    <AntdHeader style={{ padding: 0, background: colorBgContainer }}>
+    <AntdHeader style={{ padding: 0, background: token.colorBgContainer }}>
       <Row justify="space-between">
         <Col>
           <Button
@@ -107,16 +52,29 @@ export default function Header({ collapsed, setCollapsed }: HeaderProps) {
         </Col>
         <Col>
           <Dropdown
-            menu={{ items: getMenuItems(session!) }}
+            menu={{ items: items(session!) }}
             trigger={['click']}
             placement="bottomLeft"
           >
             <a onClick={(e) => e.preventDefault()}>
-              {/* TODO: corregir estilos */}
-              <Space style={{ paddingRight: '24px' }}>
-                <Avatar icon={<UserOutlined />} />
-                <DownOutlined style={{ color: '#CCC', fontSize: '12px' }} />
-              </Space>
+              <Flex align="center" gap={10}>
+                <Flex gap={10}>
+                  <Button shape="circle" icon={<MailOutlined />} />
+                  <Button shape="circle" icon={<BellOutlined />} />
+                </Flex>
+                <Divider type="vertical" />
+                <Space align="center" style={{ paddingRight: '24px' }}>
+                  <Avatar
+                    src={`https://api.dicebear.com/7.x/miniavs/svg?seed=1`}
+                    style={{ backgroundColor: 'rgba(0,0,0,0.1)' }}
+                  />
+                  <Flex vertical gap={0}>
+                    <Text strong>{session?.user?.username}</Text>
+                    <Text>{session?.user?.email}</Text>
+                  </Flex>
+                  <DownOutlined style={{ color: '#CCC', fontSize: '12px' }} />
+                </Space>
+              </Flex>
             </a>
           </Dropdown>
         </Col>
