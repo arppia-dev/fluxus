@@ -10,3 +10,11 @@ export const API_PROCESS = {
   UPDATE: '/api/processes',
   DELETE: '/api/processes',
 }
+
+export const API_PROJECT = {
+  LIST: '/api/projects',
+  GET: '/api/projects',
+  CREATE: '/api/projects',
+  UPDATE: '/api/projects',
+  DELETE: '/api/projects',
+}
