@@ -12,10 +12,8 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const { token } = theme.useToken()
   const [collapsed, setCollapsed] = useState(false)
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken()
 
   return (
     <Layout style={{ minHeight: '100%' }}>
@@ -24,11 +22,10 @@ export default function DashboardLayout({
         <Header collapsed={collapsed} setCollapsed={setCollapsed} />
         <Content
           style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG,
+            margin: 20,
+            padding: 20,
+            backgroundColor: token.colorBgContainer,
+            borderRadius: token.borderRadiusLG,
           }}
         >
           {children}
