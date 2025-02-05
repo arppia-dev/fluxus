@@ -16,8 +16,7 @@ export default function DashboardPage() {
     <>
       <Row>
         <Col>
-          <h1>Planes</h1>
-          <br />
+          <h2>Dashboard</h2>
         </Col>
       </Row>
       {/* <Row gutter={[10, 10]}>
