@@ -5,9 +5,14 @@ import { SiderProps } from './Sider.types'
 
 const { Sider: AntdSider } = Layout
 
-export default function Sider({ collapsed }: SiderProps) {
+export default function Sider({ setCollapsed, setBroken }: SiderProps) {
   return (
-    <AntdSider trigger={null} collapsible collapsed={collapsed}>
+    <AntdSider
+      breakpoint="lg"
+      collapsedWidth="0"
+      onBreakpoint={(broken) => setBroken(broken)}
+      onCollapse={(collapsed) => setCollapsed(collapsed)}
+    >
       <div className={styles.logo} />
       <Menu
         theme="dark"

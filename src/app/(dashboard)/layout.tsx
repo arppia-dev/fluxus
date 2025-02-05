@@ -13,13 +13,24 @@ export default function DashboardLayout({
   children: React.ReactNode
 }>) {
   const { token } = theme.useToken()
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState<boolean>(false)
+  const [broken, setBroken] = useState(false)
 
   return (
     <Layout style={{ minHeight: '100%' }}>
-      <Sider collapsed={collapsed} />
+      <Sider
+        collapsed={collapsed}
+        setCollapsed={setCollapsed}
+        broken={broken}
+        setBroken={setBroken}
+      />
       <Layout>
-        <Header collapsed={collapsed} setCollapsed={setCollapsed} />
+        <Header
+          collapsed={collapsed}
+          setCollapsed={setCollapsed}
+          broken={broken}
+          setBroken={setBroken}
+        />
         <Content
           style={{
             margin: 20,

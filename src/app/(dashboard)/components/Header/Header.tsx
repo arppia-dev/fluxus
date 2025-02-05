@@ -1,13 +1,4 @@
-import {
-  BellOutlined,
-  DownOutlined,
-  LogoutOutlined,
-  MailOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  SettingOutlined,
-  UserOutlined,
-} from '@ant-design/icons'
+import { BellOutlined, DownOutlined, MailOutlined } from '@ant-design/icons'
 import {
   Avatar,
   Button,
@@ -16,40 +7,25 @@ import {
   Dropdown,
   Flex,
   Layout,
-  MenuProps,
   Row,
   Space,
   theme,
   Typography,
 } from 'antd'
-import { Session } from 'next-auth'
-import { signOut, useSession } from 'next-auth/react'
-import Link from 'next/link'
-import { HeaderProps } from './Header.types'
+import { useSession } from 'next-auth/react'
 import { items } from './Header.data'
+import { HeaderProps } from './Header.types'
 
 const { Header: AntdHeader } = Layout
 const { Text } = Typography
 
-export default function Header({ collapsed, setCollapsed }: HeaderProps) {
+export default function Header({ broken }: HeaderProps) {
   const { token } = theme.useToken()
   const { data: session } = useSession()
 
   return (
     <AntdHeader style={{ padding: 0, background: token.colorBgContainer }}>
-      <Row justify="space-between">
-        <Col>
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: '16px',
-              width: 64,
-              height: 64,
-            }}
-          />
-        </Col>
+      <Row justify="end">
         <Col>
           <Dropdown
             menu={{ items: items(session!) }}
@@ -68,10 +44,12 @@ export default function Header({ collapsed, setCollapsed }: HeaderProps) {
                     src={`https://api.dicebear.com/7.x/miniavs/svg?seed=1`}
                     style={{ backgroundColor: 'rgba(0,0,0,0.1)' }}
                   />
-                  <Flex vertical gap={0}>
-                    <Text strong>{session?.user?.username}</Text>
-                    <Text>{session?.user?.email}</Text>
-                  </Flex>
+                  {!broken && (
+                    <Flex vertical gap={0}>
+                      <Text strong>{session?.user?.username}</Text>
+                      <Text>{session?.user?.email}</Text>
+                    </Flex>
+                  )}
                   <DownOutlined style={{ color: '#CCC', fontSize: '12px' }} />
                 </Space>
               </Flex>
