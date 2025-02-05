@@ -31,7 +31,7 @@ export const items: MenuProps['items'] = [
     children: [
       {
         key: '4-1',
-        label: <Link href={'/processes/projects'}>Proyectos</Link>,
+        label: <Link href={'/projects'}>Proyectos</Link>,
       },
     ],
   },
