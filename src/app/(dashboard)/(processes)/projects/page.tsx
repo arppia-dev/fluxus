@@ -1,42 +1,33 @@
 'use client'
 
+import { DiagramSchema } from '@/types/DiagramSchema'
 import { PayloadSchema } from '@/types/PayloadShema'
-import { ProcessSchema } from '@/types/ProcessSchema'
 import { API_DIAGRAM } from '@/utils/const'
 import { fetcherToken } from '@/utils/fetcher'
 import {
-  AntDesignOutlined,
   CodeSandboxOutlined,
-  ExportOutlined,
   FolderOutlined,
-  MenuOutlined,
   PlusOutlined,
-  UserOutlined,
 } from '@ant-design/icons'
 import {
-  Avatar,
   Badge,
   Button,
-  Card,
   Col,
   Flex,
   message,
-  Pagination,
   PaginationProps,
   PopconfirmProps,
   Row,
   Skeleton,
   Space,
-  Tooltip,
   Typography,
 } from 'antd'
 import Search, { SearchProps } from 'antd/es/input/Search'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import useSWR from 'swr'
-import { ProcessCard } from './components/ProcessCard'
-import { useState } from 'react'
 import qs from 'qs'
+import { useState } from 'react'
+import useSWR from 'swr'
+import { DiagramCard } from './components/DiagramCard'
 import ProjectCard from './components/ProjectCard/ProjectCard'
 
 const { Title, Text } = Typography
@@ -51,6 +42,26 @@ export default function ProcessPage() {
   })
 
   const buildQuery = (filter: string, pagination: PaginationProps) => {
+    return qs.stringify(
+      {
+        sort: ['updatedAt:desc'],
+        pagination: {
+          page: 1,
+          pageSize: 4,
+        },
+        populate: {
+          project: {
+            fields: ['name'],
+          },
+        },
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    )
+  }
+
+  const buildQuery2 = (filter: string, pagination: PaginationProps) => {
     return qs.stringify(
       {
         sort: ['name:asc'],
@@ -70,7 +81,7 @@ export default function ProcessPage() {
     )
   }
 
-  const { data: processes } = useSWR<PayloadSchema<ProcessSchema[]>>(
+  const { data: diagrams } = useSWR<PayloadSchema<DiagramSchema[]>>(
     session && [
       `${process.env.NEXT_PUBLIC_API_URL}${API_DIAGRAM}?${buildQuery(filter!, pagination)}`,
       session?.user.token!,
@@ -110,6 +121,51 @@ export default function ProcessPage() {
   return (
     <>
       {contextHolder}
+      {/* <pre>{JSON.stringify(diagrams, null, 2)}</pre> */}
+      <Flex vertical gap={20}>
+        <Row justify={'space-between'}>
+          <Col>
+            <Space>
+              <FolderOutlined style={{ fontSize: '2rem' }} />
+              <Title level={2} style={{ margin: '0' }}>
+                Proyectos
+              </Title>
+            </Space>
+          </Col>
+        </Row>
+        <Row gutter={[10, 10]}>
+          <Col span={24}>
+            <Text strong style={{ color: '#757575' }}>
+              Última edición
+            </Text>
+          </Col>
+          {diagrams ? (
+            diagrams?.data.map((process: DiagramSchema, index: number) => (
+              <Col xs={24} sm={12} md={8} lg={6} key={index}>
+                <DiagramCard data={process} index={index} />
+              </Col>
+            ))
+          ) : (
+            <Skeleton />
+          )}
+        </Row>
+      </Flex>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <Row justify={'space-between'}>
         <Col span={12}>
           <Flex gap={5} align="center">
@@ -140,30 +196,13 @@ export default function ProcessPage() {
         </Col>
       </Row>
       <br />
-      <Row gutter={[10, 10]}>
-        <Col span={24}>
-          <Text strong style={{ color: '#757575' }}>
-            Last edited
-          </Text>
-        </Col>
-        {processes ? (
-          processes?.data
-            .slice(0, 4)
-            .map((process: ProcessSchema, index: number) => (
-              <Col xs={24} sm={12} md={8} lg={6} key={index}>
-                <ProcessCard data={process} index={index} />
-              </Col>
-            ))
-        ) : (
-          <Skeleton />
-        )}
-      </Row>
+
       <br />
       <br />
       <Row gutter={[10, 10]}>
         <Col span={24}>
           <Flex gap={5}>
-            <Text strong>Project</Text>
+            <Text strong>Proyectos</Text>
             <Badge count={4} color="#757575" />
           </Flex>
         </Col>
@@ -173,18 +212,6 @@ export default function ProcessPage() {
           </Col>
         ))}
       </Row>
-
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
     </>
   )
 }

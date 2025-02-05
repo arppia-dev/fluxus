@@ -1,4 +1,4 @@
-import { ProcessSchema } from './ProcessSchema'
+import { ProcessSchema } from './DiagramSchema'
 
 export interface UserSchema {
   id: number
