@@ -5,37 +5,53 @@ import {
   MoreOutlined,
   ProductOutlined,
 } from '@ant-design/icons'
-import { Avatar, Card, Col, Flex, Row, Tooltip, Typography } from 'antd'
+import { Avatar, Card, Col, Flex, Row, theme, Tooltip, Typography } from 'antd'
+import { ProjectCardProps } from './ProjectCard.types'
+import TimeSinceDate from '@/utils/relativeTime'
 
 const { Text } = Typography
 
-export default function ProjectCard() {
+export default function ProjectCard({ data }: ProjectCardProps) {
+  const { token } = theme.useToken()
+
   return (
     <Card styles={{ body: { padding: '0.5rem 1rem' } }}>
       <Row
         align={'middle'}
         gutter={[
           { xs: 0, sm: 0, md: 0, lg: 0 },
-          { xs: 0, sm: 0, md: 0, lg: 0 },
+          { xs: 5, sm: 0, md: 0, lg: 0 },
         ]}
       >
         <Col xs={24} sm={24} lg={10}>
           <Flex gap={10} align="center">
             <FolderOutlined />
-            <Text strong>Project Name</Text>
+            <Text strong style={{ textTransform: 'capitalize' }}>
+              {data.name}
+            </Text>
           </Flex>
         </Col>
         <Col xs={24} sm={24} lg={4}>
           <Flex gap={5}>
             <ProductOutlined />
-            <Text strong style={{ color: '#757575', fontSize: '0.7rem' }}>
-              1 Diagrams
+            <Text
+              style={{
+                color: token.colorTextSecondary,
+                fontSize: token.fontSizeSM,
+              }}
+            >
+              {`${data.diagrams.length} Diagrama${data.diagrams.length !== 1 ? 's' : ''}`}
             </Text>
           </Flex>
         </Col>
         <Col xs={24} sm={24} lg={5}>
-          <Text style={{ color: '#757575', fontSize: '0.7rem' }}>
-            Edited 20 seconds ago
+          <Text
+            style={{
+              color: token.colorTextSecondary,
+              fontSize: token.fontSizeSM,
+            }}
+          >
+            Editado hace {TimeSinceDate(data.updatedAt)}
           </Text>
         </Col>
         <Col xs={24} sm={24} lg={5}>

@@ -1,12 +1,12 @@
-import { ProcessSchema } from './DiagramSchema'
+import { DiagramSchema } from './DiagramSchema'
 import { UserSchema } from './UserSchema'
 
 export interface ProjectSchema {
   id: number
   documentId: string
   name: string
-  assigned: UserSchema[]
-  processes: ProcessSchema[]
+  users: UserSchema[]
+  diagrams: DiagramSchema[]
   createdAt: Date
   updatedAt: Date
   publishedAt?: Date

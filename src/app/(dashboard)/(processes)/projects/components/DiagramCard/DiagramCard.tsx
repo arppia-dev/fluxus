@@ -7,18 +7,23 @@ import TimeSinceDate from '@/utils/relativeTime'
 
 const { Text } = Typography
 
-export default function DiagramCard({ data, index }: DiagramCardProps) {
+export default function DiagramCard({ data }: DiagramCardProps) {
   const { token } = theme.useToken()
 
   return (
     <Card styles={{ body: { padding: 0 } }}>
       <Flex vertical>
-        <BpmnViewer xml={data.bpmn} index={index} />
+        <BpmnViewer xml={data.bpmn} index={data.documentId} />
         <div style={{ padding: token.padding, textTransform: 'capitalize' }}>
           <Flex vertical gap={5}>
             <Flex gap={5} align="center">
               <FolderOutlined style={{ color: token.colorTextSecondary }} />
-              <Text style={{ color: token.colorTextSecondary }}>
+              <Text
+                style={{
+                  color: token.colorTextSecondary,
+                  fontSize: token.fontSizeSM,
+                }}
+              >
                 {data.project ? data.project.name : 'Sin proyecto'}
               </Text>
             </Flex>

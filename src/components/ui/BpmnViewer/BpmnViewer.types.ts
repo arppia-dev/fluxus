@@ -1,6 +1,6 @@
 export type BpmnViewerProps = {
   xml: string
-  index: number
+  index: string
 }
 
 export type CanvasProps = {
