@@ -10,6 +10,7 @@ import {
   PlusOutlined,
 } from '@ant-design/icons'
 import {
+  Alert,
   Badge,
   Button,
   Col,
@@ -18,6 +19,7 @@ import {
   Pagination,
   PaginationProps,
   PopconfirmProps,
+  Result,
   Row,
   Segmented,
   Skeleton,
@@ -101,13 +103,18 @@ export default function ProjectsList() {
     })
   }
 
-  if (!projects) {
-    return <Skeleton />
-  }
-
   return (
     <Flex vertical gap={10}>
-      <Row justify={'end'}>
+      <Row justify={'space-between'} align={'middle'}>
+        <Col>
+          <Space>
+            <Text strong>Proyectos</Text>
+            <Badge
+              count={projects && projects.meta?.pagination?.total}
+              color={token.colorTextSecondary}
+            />
+          </Space>
+        </Col>
         <Col>
           <Space>
             <Search
@@ -123,23 +130,20 @@ export default function ProjectsList() {
           </Space>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <Space>
-            <Text strong>Proyectos</Text>
-            <Badge
-              count={projects.meta?.pagination?.total}
-              color={token.colorTextSecondary}
-            />
-          </Space>
-        </Col>
-      </Row>
       <Row gutter={[10, 10]}>
-        {projects?.data.map((project: ProjectSchema) => (
-          <Col xs={24} sm={12} lg={24} key={project.documentId}>
-            <ProjectCard data={project} />
+        {!projects ? (
+          <Skeleton />
+        ) : projects && projects.data.length ? (
+          projects?.data.map((project: ProjectSchema) => (
+            <Col xs={24} sm={12} lg={24} key={project.documentId}>
+              <ProjectCard data={project} />
+            </Col>
+          ))
+        ) : (
+          <Col span={24}>
+            <Result title="No se encontraron resultados" />
           </Col>
-        ))}
+        )}
       </Row>
       <Row justify={'end'}>
         <Col>

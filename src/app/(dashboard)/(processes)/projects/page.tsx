@@ -5,7 +5,7 @@ import { Col, Flex, Row, Space, theme, Typography } from 'antd'
 import { DiagramsLastEdition } from './components/DiagramsLastEdition'
 import { ProjectsList } from './components/ProjectsList'
 
-const { Title, Text } = Typography
+const { Title } = Typography
 
 export default function ProcessPage() {
   const { token } = theme.useToken()
@@ -22,8 +22,10 @@ export default function ProcessPage() {
           </Space>
         </Col>
       </Row>
-      <DiagramsLastEdition />
-      <ProjectsList />
+      <Flex vertical gap={20}>
+        <DiagramsLastEdition />
+        <ProjectsList />
+      </Flex>
     </Flex>
   )
 }
