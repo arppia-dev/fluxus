@@ -65,7 +65,7 @@ export default function DiagramsLastEdition() {
           </Text>
         </Col>
       </Row>
-      <Row gutter={10}>
+      <Row gutter={[10, 10]}>
         {diagrams?.data.map((process: DiagramSchema) => (
           <Col xs={24} sm={12} md={8} lg={6} key={process.id}>
             <DiagramCard data={process} />

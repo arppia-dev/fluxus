@@ -33,8 +33,8 @@ export default function DashboardLayout({
         />
         <Content
           style={{
-            margin: 20,
-            padding: 20,
+            margin: broken ? token.marginXS : token.margin,
+            padding: token.paddingContentHorizontal,
             backgroundColor: token.colorBgContainer,
             borderRadius: token.borderRadiusLG,
           }}
