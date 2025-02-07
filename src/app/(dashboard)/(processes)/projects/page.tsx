@@ -7,7 +7,7 @@ import { ProjectsList } from './components/ProjectsList'
 
 const { Title } = Typography
 
-export default function ProcessPage() {
+export default function ProjectPage() {
   const { token } = theme.useToken()
 
   return (

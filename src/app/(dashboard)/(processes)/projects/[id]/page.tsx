@@ -1,10 +1,11 @@
+'use client'
+
+import { DiagramSchema } from '@/types/DiagramSchema'
 import { PayloadSchema } from '@/types/PayloadShema'
-import { ProjectSchema } from '@/types/ProjectSchema'
-import { API_PROJECT } from '@/utils/const'
+import { API_DIAGRAM } from '@/utils/const'
 import { fetcherToken } from '@/utils/fetcher'
-import { PlusOutlined } from '@ant-design/icons'
+import { FolderOutlined, PlusOutlined } from '@ant-design/icons'
 import {
-  Badge,
   Button,
   Col,
   Flex,
@@ -17,16 +18,19 @@ import {
   theme,
   Typography,
 } from 'antd'
-import Search, { SearchProps } from 'antd/es/input/Search'
+import { SearchProps } from 'antd/es/input'
+import Search from 'antd/es/input/Search'
 import { useSession } from 'next-auth/react'
+import { useParams } from 'next/navigation'
 import qs from 'qs'
 import { useState } from 'react'
 import useSWR from 'swr'
-import ProjectCard from '../ProjectCard/ProjectCard'
+import { DiagramCard } from '../components/DiagramCard'
 
-const { Text } = Typography
+const { Title } = Typography
 
-export default function ProjectsList() {
+export default function DiagramPage() {
+  const params = useParams<{ id: string }>()
   const { token } = theme.useToken()
   const { data: session } = useSession()
   const [filter, setFilter] = useState<string | null>()
@@ -43,10 +47,15 @@ export default function ProjectsList() {
           name: {
             $containsi: filter,
           },
+          project: {
+            documentId: {
+              $eq: params.id,
+            },
+          },
         },
         populate: {
-          diagrams: {
-            fields: ['id'],
+          project: {
+            fields: ['name'],
           },
         },
         pagination: {
@@ -60,9 +69,9 @@ export default function ProjectsList() {
     )
   }
 
-  const { data: projects } = useSWR<PayloadSchema<ProjectSchema[]>>(
+  const { data: diagrams } = useSWR<PayloadSchema<DiagramSchema[]>>(
     session && [
-      `${process.env.NEXT_PUBLIC_API_URL}${API_PROJECT}?${buildQuery(filter!, pagination)}`,
+      `${process.env.NEXT_PUBLIC_API_URL}${API_DIAGRAM}?${buildQuery(filter!, pagination)}`,
       session?.user.token!,
     ],
     ([url, token]) => fetcherToken(url, token as string),
@@ -97,11 +106,10 @@ export default function ProjectsList() {
       <Row justify={'space-between'} align={'middle'}>
         <Col>
           <Space>
-            <Text strong>Proyectos</Text>
-            <Badge
-              count={projects && projects.meta?.pagination?.total}
-              color={token.colorTextSecondary}
-            />
+            <FolderOutlined style={{ fontSize: token.fontSizeHeading2 }} />
+            <Title level={2} style={{ margin: '0' }}>
+              Diagramas
+            </Title>
           </Space>
         </Col>
         <Col>
@@ -120,12 +128,12 @@ export default function ProjectsList() {
         </Col>
       </Row>
       <Row gutter={[10, 10]}>
-        {!projects ? (
+        {!diagrams ? (
           <Skeleton />
-        ) : projects && projects.data.length ? (
-          projects?.data.map((project: ProjectSchema) => (
-            <Col xs={24} sm={12} lg={24} key={project.documentId}>
-              <ProjectCard data={project} />
+        ) : diagrams && diagrams.data.length ? (
+          diagrams?.data.map((diagram: DiagramSchema) => (
+            <Col xs={24} sm={12} md={8} lg={6} key={diagram.id}>
+              <DiagramCard data={diagram} />
             </Col>
           ))
         ) : (
@@ -140,7 +148,7 @@ export default function ProjectsList() {
             defaultCurrent={1}
             current={pagination.current}
             pageSize={pagination.pageSize}
-            total={projects?.meta?.pagination?.total}
+            total={diagrams?.meta?.pagination?.total}
             showSizeChanger
             pageSizeOptions={[12, 24, 36, 100]}
             onChange={onChange}

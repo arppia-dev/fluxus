@@ -20,6 +20,7 @@ import {
 } from 'antd'
 import { items } from './ProjectCard.data'
 import { ProjectCardProps } from './ProjectCard.types'
+import Link from 'next/link'
 
 const { Text } = Typography
 
@@ -30,12 +31,22 @@ export default function ProjectCard({ data }: ProjectCardProps) {
     <Card styles={{ body: { padding: token.padding } }}>
       <Row align={'middle'} gutter={[undefined, { xs: 2, sm: 0 }]}>
         <Col xs={{ span: 22, order: 1 }} lg={{ span: 10, order: 1 }}>
-          <Space>
-            <FolderOutlined />
-            <Text strong style={{ textTransform: 'capitalize' }}>
-              {data.name}
-            </Text>
-          </Space>
+          <Link
+            href={`/projects/${data.documentId}`}
+            style={{ color: token.colorText }}
+          >
+            <Space>
+              <FolderOutlined />
+              <Text
+                strong
+                style={{
+                  textTransform: 'capitalize',
+                }}
+              >
+                {data.name}
+              </Text>
+            </Space>
+          </Link>
         </Col>
         <Col xs={{ span: 24, order: 3 }} lg={{ span: 4, order: 2 }}>
           <Space>

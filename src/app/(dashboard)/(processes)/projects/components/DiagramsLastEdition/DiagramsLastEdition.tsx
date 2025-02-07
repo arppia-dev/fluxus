@@ -2,17 +2,7 @@ import { DiagramSchema } from '@/types/DiagramSchema'
 import { PayloadSchema } from '@/types/PayloadShema'
 import { API_DIAGRAM } from '@/utils/const'
 import { fetcherToken } from '@/utils/fetcher'
-import { FolderOutlined } from '@ant-design/icons'
-import {
-  Col,
-  Flex,
-  message,
-  Row,
-  Skeleton,
-  Space,
-  theme,
-  Typography,
-} from 'antd'
+import { Col, Flex, Row, Skeleton, theme, Typography } from 'antd'
 import { useSession } from 'next-auth/react'
 import qs from 'qs'
 import useSWR from 'swr'
@@ -66,9 +56,9 @@ export default function DiagramsLastEdition() {
         </Col>
       </Row>
       <Row gutter={[10, 10]}>
-        {diagrams?.data.map((process: DiagramSchema) => (
-          <Col xs={24} sm={12} md={8} lg={6} key={process.id}>
-            <DiagramCard data={process} />
+        {diagrams?.data.map((diagram: DiagramSchema) => (
+          <Col xs={24} sm={12} md={8} lg={6} key={diagram.documentId}>
+            <DiagramCard data={diagram} />
           </Col>
         ))}
       </Row>
