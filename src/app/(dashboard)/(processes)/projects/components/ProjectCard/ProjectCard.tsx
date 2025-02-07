@@ -11,12 +11,14 @@ import {
   Button,
   Card,
   Col,
+  Dropdown,
   Row,
   Space,
   theme,
   Tooltip,
   Typography,
 } from 'antd'
+import { items } from './ProjectCard.data'
 import { ProjectCardProps } from './ProjectCard.types'
 
 const { Text } = Typography
@@ -74,7 +76,9 @@ export default function ProjectCard({ data }: ProjectCardProps) {
           lg={{ span: 2, order: 3 }}
           style={{ textAlign: 'right' }}
         >
-          <Button type="text" icon={<MoreOutlined />} />
+          <Dropdown menu={{ items }} trigger={['click']}>
+            <Button type="text" icon={<MoreOutlined />} />
+          </Dropdown>
         </Col>
       </Row>
     </Card>
