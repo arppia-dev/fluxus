@@ -17,10 +17,10 @@ export default function DiagramCard({ data }: DiagramCardProps) {
         <div style={{ padding: token.padding, textTransform: 'capitalize' }}>
           <Flex vertical gap={5}>
             <Flex gap={5} align="center">
-              <FolderOutlined style={{ color: token.colorTextSecondary }} />
+              <FolderOutlined style={{ color: token.colorTextDescription }} />
               <Text
                 style={{
-                  color: token.colorTextSecondary,
+                  color: token.colorTextDescription,
                   fontSize: token.fontSizeSM,
                 }}
               >
@@ -33,7 +33,7 @@ export default function DiagramCard({ data }: DiagramCardProps) {
               </Link>
               <Text
                 style={{
-                  color: token.colorTextSecondary,
+                  color: token.colorTextDescription,
                   fontSize: token.fontSizeSM,
                 }}
               >

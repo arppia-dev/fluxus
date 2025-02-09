@@ -50,10 +50,10 @@ export default function ProjectCard({ data }: ProjectCardProps) {
         </Col>
         <Col xs={{ span: 24, order: 3 }} lg={{ span: 4, order: 2 }}>
           <Space>
-            <ProductOutlined />
+            <ProductOutlined style={{ color: token.colorTextDescription }} />
             <Text
               style={{
-                color: token.colorTextSecondary,
+                color: token.colorTextDescription,
                 fontSize: token.fontSizeSM,
               }}
             >
@@ -64,7 +64,7 @@ export default function ProjectCard({ data }: ProjectCardProps) {
         <Col xs={{ span: 24, order: 3 }} lg={{ span: 4, order: 2 }}>
           <Text
             style={{
-              color: token.colorTextSecondary,
+              color: token.colorTextDescription,
               fontSize: token.fontSizeSM,
             }}
           >
