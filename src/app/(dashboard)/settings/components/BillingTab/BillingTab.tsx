@@ -22,6 +22,9 @@ export default function BillingTab() {
           page: 1,
           pageSize: 3,
         },
+        populate: {
+          billing: '*',
+        },
       },
       {
         encodeValuesOnly: true,
@@ -43,8 +46,8 @@ export default function BillingTab() {
         <Row gutter={[10, 10]}>
           {plans?.data.map((item: PlanSchema, index: number) => {
             return (
-              <Col xs={24} sm={12} md={8} key={index}>
-                <PlanCard data={item} />
+              <Col xs={24} sm={12} md={8} key={item.documentId}>
+                <PlanCard data={item} suscription={index == 0} />
               </Col>
             )
           })}
