@@ -3,9 +3,19 @@ import { PlanSchema } from '@/types/PlanSchema'
 import { API_PLAN } from '@/utils/const'
 import { fetcherToken } from '@/utils/fetcher'
 import { DownloadOutlined } from '@ant-design/icons'
-import { Button, Col, Flex, Row, Table, Typography } from 'antd'
+import {
+  Button,
+  Col,
+  Flex,
+  Row,
+  Segmented,
+  Skeleton,
+  Table,
+  Typography,
+} from 'antd'
 import { useSession } from 'next-auth/react'
 import qs from 'qs'
+import { useState } from 'react'
 import useSWR from 'swr'
 import { PlanCard } from '../PlanCard'
 
@@ -13,6 +23,7 @@ const { Title, Text } = Typography
 
 export default function BillingTab() {
   const { data: session } = useSession()
+  const [billing, setBilling] = useState<string>('monthly')
 
   const buildQuery = () => {
     return qs.stringify(
@@ -43,14 +54,35 @@ export default function BillingTab() {
   return (
     <>
       <Flex vertical gap={10}>
+        <Row justify={'end'}>
+          <Col>
+            <Segmented<string>
+              options={[
+                { label: 'Mensual', value: 'monthly' },
+                { label: 'Anual', value: 'annual' },
+              ]}
+              onChange={(value) => {
+                setBilling(value)
+              }}
+            />
+          </Col>
+        </Row>
         <Row gutter={[10, 10]}>
-          {plans?.data.map((item: PlanSchema, index: number) => {
-            return (
-              <Col xs={24} sm={12} md={8} key={item.documentId}>
-                <PlanCard data={item} suscription={index == 0} />
-              </Col>
-            )
-          })}
+          {plans ? (
+            plans?.data.map((item: PlanSchema, index: number) => {
+              return (
+                <Col xs={24} sm={12} md={8} key={item.documentId}>
+                  <PlanCard
+                    data={item}
+                    billing={billing}
+                    suscription={index == 0}
+                  />
+                </Col>
+              )
+            })
+          ) : (
+            <Skeleton />
+          )}
         </Row>
         <Row>
           <Col>

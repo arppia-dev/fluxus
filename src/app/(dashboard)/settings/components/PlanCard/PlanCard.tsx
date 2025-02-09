@@ -1,13 +1,24 @@
 import { CheckCircleOutlined } from '@ant-design/icons'
-import { Button, Card, Drawer, Flex, theme, Typography } from 'antd'
+import { Button, Card, Drawer, Flex, Space, Tag, theme, Typography } from 'antd'
 import { useState } from 'react'
 import { PlanCardProps } from './PlanCard.types'
 
 const { Text } = Typography
 
-export default function PlanCard({ data, suscription }: PlanCardProps) {
+export default function PlanCard({
+  data,
+  billing,
+  suscription,
+}: PlanCardProps) {
   const { token } = theme.useToken()
   const [openDrawerPayment, setOpenDrawerPayment] = useState(false)
+
+  const priceMonthly = data.billing.find(
+    (item) => item.billing === 'monthly',
+  )?.price
+  const priceAnnual = data.billing.find(
+    (item) => item.billing === 'annual',
+  )?.price
 
   const showDrawerPayment = () => {
     setOpenDrawerPayment(!openDrawerPayment)
@@ -37,12 +48,24 @@ export default function PlanCard({ data, suscription }: PlanCardProps) {
           <Text style={{ color: token.colorTextDescription }}>
             {data.description}
           </Text>
-          <Text
-            strong
-            style={{ fontSize: token.fontSizeHeading3, margin: '0' }}
-          >
-            {data.billing.find((item) => item.billing === 'monthly')?.price}/Mes
-          </Text>
+          <Space>
+            <Text strong style={{ fontSize: token.fontSizeHeading3 }}>
+              ${data.billing.find((item) => item.billing === billing)?.price}
+            </Text>
+            <Text style={{ color: token.colorTextSecondary }}>
+              por {billing == 'monthly' ? 'mes' : 'año'}
+            </Text>
+            {billing === 'annual' && (
+              <Tag style={{ color: token['green-9'] }}>
+                Ahorras un{' '}
+                {Math.round(
+                  ((priceMonthly! - priceAnnual!) / priceMonthly!) * 100,
+                )}
+                %
+              </Tag>
+            )}
+          </Space>
+
           {/* <Flex vertical gap={10}>
           {data.points.map((point: string, index: number) => {
             return (
