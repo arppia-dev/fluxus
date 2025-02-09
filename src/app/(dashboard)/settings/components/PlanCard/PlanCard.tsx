@@ -1,10 +1,10 @@
 import { CheckCircleFilled } from '@ant-design/icons'
-import { Button, Card, Divider, Flex, Space, theme, Typography } from 'antd'
-import { PriceCardProps } from './PriceCard.types'
+import { Button, Card, Flex, Space, theme, Typography } from 'antd'
+import { PlanCardProps } from './PlanCard.types'
 
 const { Text } = Typography
 
-export default function PriceCard({ data }: PriceCardProps) {
+export default function PriceCard({ data }: PlanCardProps) {
   const { token } = theme.useToken()
 
   return (

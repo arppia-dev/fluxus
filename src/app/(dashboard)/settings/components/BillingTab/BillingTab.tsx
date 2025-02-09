@@ -1,11 +1,11 @@
 import { Button, Col, Flex, Row, Table, Typography } from 'antd'
-import { PriceCard } from '../PriceCard'
-import { PriceSchema } from '../PriceCard/PriceCard.types'
+import { PriceCard } from '../PlanCard'
+import { PlanSchema } from '../PlanCard/PlanCard.types'
 import { DownloadOutlined } from '@ant-design/icons'
 
 const { Title, Text } = Typography
 
-const plans: PriceSchema[] = [
+const plans: PlanSchema[] = [
   {
     name: 'Free plan',
     description:
@@ -49,7 +49,7 @@ export default function BillingTab() {
     <>
       <Flex vertical gap={10}>
         <Row gutter={[10, 10]}>
-          {plans.map((item: PriceSchema, index: number) => {
+          {plans.map((item: PlanSchema, index: number) => {
             return (
               <Col xs={24} sm={12} md={8} key={index}>
                 <PriceCard data={item} />

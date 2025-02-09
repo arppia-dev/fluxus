@@ -1,12 +1,12 @@
 import { DiagramSchema } from '@/types/DiagramSchema'
 
-export type PriceSchema = {
+export type PlanSchema = {
   name: string
   description: string
   price: number
   points: string[]
 }
 
-export type PriceCardProps = {
-  data: PriceSchema
+export type PlanCardProps = {
+  data: PlanSchema
 }
