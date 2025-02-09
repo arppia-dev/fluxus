@@ -1,14 +1,9 @@
+import { GeneralSchema } from './GeneralSchema'
 import { ProjectSchema } from './ProjectSchema'
 
-export interface DiagramSchema {
-  id: number
-  documentId: string
+export interface DiagramSchema extends GeneralSchema {
   name: string
   description: string
   bpmn: string
   project: ProjectSchema
-  createdAt: Date
-  updatedAt: Date
-  publishedAt?: Date
-  locale: string
 }

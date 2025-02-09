@@ -5,3 +5,4 @@ export const API_AUTH = {
 
 export const API_DIAGRAM = '/api/diagrams'
 export const API_PROJECT = '/api/projects'
+export const API_PLAN = '/api/plans'
