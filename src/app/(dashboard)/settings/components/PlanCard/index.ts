@@ -1,1 +1,1 @@
-export { default as PriceCard } from './PlanCard'
+export { default as PlanCard } from './PlanCard'

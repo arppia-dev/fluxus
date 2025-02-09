@@ -1,11 +1,4 @@
-import { DiagramSchema } from '@/types/DiagramSchema'
-
-export type PlanSchema = {
-  name: string
-  description: string
-  price: number
-  points: string[]
-}
+import { PlanSchema } from '@/types/PlanSchema'
 
 export type PlanCardProps = {
   data: PlanSchema

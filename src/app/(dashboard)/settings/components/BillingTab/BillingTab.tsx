@@ -1,58 +1,50 @@
-import { Button, Col, Flex, Row, Table, Typography } from 'antd'
-import { PriceCard } from '../PlanCard'
-import { PlanSchema } from '../PlanCard/PlanCard.types'
+import { PayloadSchema } from '@/types/PayloadShema'
+import { PlanSchema } from '@/types/PlanSchema'
+import { API_PLAN } from '@/utils/const'
+import { fetcherToken } from '@/utils/fetcher'
 import { DownloadOutlined } from '@ant-design/icons'
+import { Button, Col, Flex, Row, Table, Typography } from 'antd'
+import { useSession } from 'next-auth/react'
+import qs from 'qs'
+import useSWR from 'swr'
+import { PlanCard } from '../PlanCard'
 
 const { Title, Text } = Typography
 
-const plans: PlanSchema[] = [
-  {
-    name: 'Free plan',
-    description:
-      'For individuals and small teams looking to manage their tasks.',
-    price: 0,
-    points: [
-      '2 GB of cloud storage',
-      'Locally stored files',
-      '1 individual user',
-      '1 devices synced',
-    ],
-  },
-  {
-    name: 'Basic plan',
-    description:
-      'For individuals and small teams looking to manage their tasks.',
-    price: 10,
-    points: [
-      '10 GB of cloud storage',
-      'Locally stored files',
-      'Up 5 individual user',
-      'Up 5 devices synced',
-    ],
-  },
-  {
-    name: 'Pro plan',
-    description:
-      'For individuals and small teams looking to manage their tasks.',
-    price: 20,
-    points: [
-      '50 GB of cloud storage',
-      'Locally stored files',
-      'Up 15 individual user',
-      'Up 30 devices synced',
-    ],
-  },
-]
-
 export default function BillingTab() {
+  const { data: session } = useSession()
+
+  const buildQuery = () => {
+    return qs.stringify(
+      {
+        sort: ['order:asc'],
+        pagination: {
+          page: 1,
+          pageSize: 3,
+        },
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    )
+  }
+
+  const { data: plans } = useSWR<PayloadSchema<PlanSchema[]>>(
+    session && [
+      `${process.env.NEXT_PUBLIC_API_URL}${API_PLAN}?${buildQuery()}`,
+      session?.user.token!,
+    ],
+    ([url, token]) => fetcherToken(url, token as string),
+  )
+
   return (
     <>
       <Flex vertical gap={10}>
         <Row gutter={[10, 10]}>
-          {plans.map((item: PlanSchema, index: number) => {
+          {plans?.data.map((item: PlanSchema, index: number) => {
             return (
               <Col xs={24} sm={12} md={8} key={index}>
-                <PriceCard data={item} />
+                <PlanCard data={item} />
               </Col>
             )
           })}

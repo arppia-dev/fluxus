@@ -4,7 +4,7 @@ import { PlanCardProps } from './PlanCard.types'
 
 const { Text } = Typography
 
-export default function PriceCard({ data }: PlanCardProps) {
+export default function PlanCard({ data }: PlanCardProps) {
   const { token } = theme.useToken()
 
   return (
@@ -17,7 +17,7 @@ export default function PriceCard({ data }: PlanCardProps) {
         <Text strong style={{ fontSize: token.fontSizeHeading3, margin: '0' }}>
           ${data.price} / Mes
         </Text>
-        <Flex vertical gap={10}>
+        {/* <Flex vertical gap={10}>
           {data.points.map((point: string, index: number) => {
             return (
               <Space key={index}>
@@ -26,7 +26,7 @@ export default function PriceCard({ data }: PlanCardProps) {
               </Space>
             )
           })}
-        </Flex>
+        </Flex> */}
         <Button type="primary" block>
           Obtener Ahora
         </Button>

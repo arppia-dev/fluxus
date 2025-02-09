@@ -132,7 +132,7 @@ export default function DiagramPage() {
           <Skeleton />
         ) : diagrams && diagrams.data.length ? (
           diagrams?.data.map((diagram: DiagramSchema) => (
-            <Col xs={24} sm={12} md={8} lg={6} key={diagram.id}>
+            <Col xs={24} sm={12} md={8} lg={6} key={diagram.documentId}>
               <DiagramCard data={diagram} />
             </Col>
           ))
