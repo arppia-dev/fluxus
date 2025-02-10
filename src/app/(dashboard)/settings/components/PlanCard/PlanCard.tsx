@@ -1,7 +1,8 @@
-import { CheckCircleOutlined } from '@ant-design/icons'
+import { CheckCircleFilled, CheckCircleOutlined } from '@ant-design/icons'
 import { Button, Card, Drawer, Flex, Space, Tag, theme, Typography } from 'antd'
 import { useState } from 'react'
 import { PlanCardProps } from './PlanCard.types'
+import { PaymentForm } from '../PaymentForm'
 
 const { Text } = Typography
 
@@ -65,17 +66,16 @@ export default function PlanCard({
               </Tag>
             )}
           </Space>
-
-          {/* <Flex vertical gap={10}>
-          {data.points.map((point: string, index: number) => {
-            return (
-              <Space key={index}>
-                <CheckCircleFilled style={{ color: token.colorPrimary }} />
-                <Text>{point}</Text>
-              </Space>
-            )
-          })}
-        </Flex> */}
+          <Flex vertical gap={10}>
+            {[1, 2, 3, 4].map((point: number, index: number) => {
+              return (
+                <Space key={index}>
+                  <CheckCircleFilled style={{ color: token.colorPrimary }} />
+                  <Text>feature number {point}</Text>
+                </Space>
+              )
+            })}
+          </Flex>
           <Button
             type="primary"
             block
@@ -87,7 +87,7 @@ export default function PlanCard({
         </Flex>
       </Card>
       <Drawer
-        title="Create a new account"
+        title="Actualiza tu plan"
         width={'30%'}
         onClose={showDrawerPayment}
         open={openDrawerPayment}
@@ -97,7 +97,7 @@ export default function PlanCard({
           },
         }}
       >
-        <pre>Prueba</pre>
+        <PaymentForm />
       </Drawer>
     </>
   )

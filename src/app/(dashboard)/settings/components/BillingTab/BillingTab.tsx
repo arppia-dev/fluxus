@@ -23,7 +23,7 @@ const { Title, Text } = Typography
 
 export default function BillingTab() {
   const { data: session } = useSession()
-  const [billing, setBilling] = useState<string>('monthly')
+  const [billing, setBilling] = useState<string>('annual')
 
   const buildQuery = () => {
     return qs.stringify(
@@ -58,8 +58,8 @@ export default function BillingTab() {
           <Col>
             <Segmented<string>
               options={[
-                { label: 'Mensual', value: 'monthly' },
                 { label: 'Anual', value: 'annual' },
+                { label: 'Mensual', value: 'monthly' },
               ]}
               onChange={(value) => {
                 setBilling(value)
